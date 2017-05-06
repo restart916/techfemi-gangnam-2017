@@ -15,6 +15,24 @@
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
@@ -31,11 +49,25 @@
     </style>
   </head>
   <body>
+    <div>
+      <div class="before-login">
+        <a href="" class="facebook-login-button btn"><i class="fa fa-facebook-official" aria-hidden="true"></i> facebook</a>
+        <a href="" class="twitter-login-button btn"><i class="fa fa-twitter" aria-hidden="true"></i> twitter</a>
+        <a href="" class="logout-button btn"> logout</a>
+      </div>
+      <div class="after-login">
+        <div class="user-name"></div>
+        <div>
+          <img src="\" class="user-image">
+        </div>
+      </div>
+    </div>
     <div id="message">
       <h2>Welcome Test</h2>
       <h1>Firebase Hosting Setup Complete</h1>
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
 
@@ -60,36 +92,46 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
 
-        /*
-        var provider = new firebase.auth.TwitterAuthProvider();
-        provider.setCustomParameters({
-          'lang': 'es'
+        document.getElementsByClassName('twitter-login-button')[0].addEventListener('click', function(event) {
+          event.preventDefault();
+          console.log('click twitter-login-button');
+          loginTwitter();
+        });
+   
+        document.getElementsByClassName('logout-button')[0].addEventListener('click', function(event) {
+          event.preventDefault();
+          console.log('click logout-button');
+          logout();
         });
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-          // You can use these server side with your app's credentials to access the Twitter API.
-          var token = result.credential.accessToken;
-          var secret = result.credential.secret;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
-          console.log('twitter success');
-
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-          console.log('twitter error');
+        document.getElementsByClassName('facebook-login-button')[0].addEventListener('click', function(event) {
+          event.preventDefault();
+          console.log('click facebook-login-button');
+          loginFacebook();
         });
-        //*/
-        
-        /*
+
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            // User is signed in.
+            console.log('user');
+
+            document.getElementsByClassName('user-name')[0].innerHTML = user.displayName;
+            document.getElementsByClassName('user-image')[0].src = user.photoURL;
+          } else {
+            // No user is signed in.
+            console.log('no user');
+
+            document.getElementsByClassName('user-name')[0].innerHTML = '';
+            document.getElementsByClassName('user-image')[0].src = '';
+          }
+        });
+      }); 
+
+      function logout() {
+        firebase.auth().signOut();
+      }
+
+      function loginFacebook() {
         var provider = new firebase.auth.FacebookAuthProvider();
         provider.addScope('user_birthday');
         provider.setCustomParameters({
@@ -115,19 +157,46 @@
           // ...
 
           console.log('error');
+          showError(error);
+        });
+      }
+
+      function loginTwitter() {
+        
+        var provider = new firebase.auth.TwitterAuthProvider();
+        provider.setCustomParameters({
+          'lang': 'es'
         });
 
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            // User is signed in.
-            console.log('user');
-          } else {
-            // No user is signed in.
-            console.log('no user');
-          }
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+          // You can use these server side with your app's credentials to access the Twitter API.
+          var token = result.credential.accessToken;
+          var secret = result.credential.secret;
+          // The signed-in user info.
+          var user = result.user;
+          // ...
+          console.log('twitter success');
+
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+          console.log('twitter error');
+          showError(error);
         });
         //*/
-      });
+      }
+
+      function showError(error) {
+        alert(error.message);
+      }
+
     </script>
   </body>
 </html>
