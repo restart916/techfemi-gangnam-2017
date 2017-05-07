@@ -73,11 +73,13 @@
     <div id="">
       <ul id="comment-lists">
         <li v-for="data in datas">
-          <div class="data-user-name">{{ data.username }}</div>
-          <div>
-            <img v-bind:src="data.userPhotoUrl" class="data-user-image">
+          <div class="row">
+            <div class="col-md-2 data-user-name">{{ data.username }}</div>
+            <div class="col-md-2">
+              <img v-bind:src="data.userPhotoUrl" class="data-user-image">
+            </div>
+            <div class="col-md-8 data-comment">{{ data.comment }}</div>
           </div>
-          <div class="data-comment">{{ data.comment }}</div>
         </li>
       </ul>
     </div>
