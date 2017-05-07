@@ -70,7 +70,16 @@
       <hr>
       <a href="" class="comment-submit-btn btn btn-large">전송</a>
     </div>
-    <div id="lists">
+    <div id="">
+      <ul id="comment-lists">
+        <li v-for="data in datas">
+          <div class="data-user-name">{{ data.username }}</div>
+          <div>
+            <img v-bind:src="data.userPhotoUrl" class="data-user-image">
+          </div>
+          <div class="data-comment">{{ data.comment }}</div>
+        </li>
+      </ul>
     </div>
     <div id="more">
       <a href="" class="more-btn btn btn-large">더보기</a>
@@ -78,6 +87,8 @@
     <p id="load">Firebase SDK Loading&hellip;</p>
 
     <script>
+      let datas = [];
+
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
@@ -143,14 +154,22 @@
             document.getElementsByClassName('user-image')[0].src = '';
           }
         });
+
+        var app = new Vue({
+          el: '#comment-lists',
+          data: {
+            datas: datas
+          }
+        })
       }); 
 
       function requestComments() {
         firebase.database().ref().child('comments').orderByKey().limitToFirst(5).once('value').then(function(snapshot) {
-          let value = snapshot.val();
-          console.log(value);
+          snapshot.forEach(function(childSnapshot) {
+            console.log(childSnapshot.val());
+            datas.push(childSnapshot.val());
+          });
         });;
-
       }
 
       function submitComment() {
@@ -175,7 +194,9 @@
         var updates = {};
         updates['/comments/' + newPostKey] = object;
 
-        firebase.database().ref().update(updates);
+        firebase.database().ref().update(updates, function() {
+          alert("success");
+        });
       }
 
       function logout() {
