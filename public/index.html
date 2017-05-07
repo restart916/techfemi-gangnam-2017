@@ -62,13 +62,13 @@
         </div>
       </div>
     </div>
-    <div id="message">
+    <div id="comment">
       <h2>테크페미</h2>
       <h1>나의 두려움은 용기가 되어 돌아왔다</h1>
       <p>강남역여성살해1주기 추모행사 "나의 두려움은 용기가 되어 돌아왔다" 추모의 글을 올려주세요. 블라블라 어쩌구 저쩌구</p>
-      <input type="text" class="input-message form-control">
+      <input type="text" class="input-comment form-control">
       <hr>
-      <a href="" class="btn btn-large">전송</a>
+      <a href="" class="comment-submit-btn btn btn-large">전송</a>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
 
@@ -111,6 +111,13 @@
           loginFacebook();
         });
 
+        document.getElementsByClassName('comment-submit-btn')[0].addEventListener('click', function(event) {
+          event.preventDefault();
+          console.log('click comment-submit-btn');
+
+          submitComment();
+        });
+
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
             // User is signed in.
@@ -127,6 +134,31 @@
           }
         });
       }); 
+
+      function submitComment() {
+        let user = firebase.auth().currentUser;
+        if (user == null) {
+          alert('로그인을 해주세요');
+          return;
+        }
+
+        let comment = document.getElementsByClassName('input-comment')[0].value;
+        console.log(comment);
+
+        let object = {
+          username : user.displayName,
+          userPhotoUrl : user.photoURL,
+          comment : comment
+        };
+
+        // Get a key for a new Post.
+        var newPostKey = firebase.database().ref().child('comments').push().key;
+
+        var updates = {};
+        updates['/comments/' + newPostKey] = object;
+
+        firebase.database().ref().update(updates);
+      }
 
       function logout() {
         firebase.auth().signOut();
