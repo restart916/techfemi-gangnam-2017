@@ -46,7 +46,8 @@
         body, #comment { margin-top: 0; background: white; box-shadow: none; }
         body { border-top: 16px solid #ffa100; }
       }
-      .top-nav { max-width: 720px; margin: 12px auto 12px; }
+      #top-nav { max-width: 720px; margin: 12px auto 12px; }
+      #top-nav .user-image { width: 30px;  }
       #comment-lists { padding: 0px; }
       #comment-lists li { 
         list-style-type: none;
@@ -55,20 +56,27 @@
       }
       #comment-lists img { width: 50px; }
       #more { max-width: 720px; margin: 12px auto 12px; }
+
     </style>
   </head>
   <body>
-    <div class=top-nav>
-      <div class="before-login float-right">
-        <a href="" class="facebook-login-button btn"><i class="fa fa-facebook-official" aria-hidden="true"></i> facebook</a>
-        <a href="" class="twitter-login-button btn"><i class="fa fa-twitter" aria-hidden="true"></i> twitter</a>
-        <a href="" class="logout-button btn"> logout</a>
-      </div>
-      <div class="after-login">
-        <div class="user-name"></div>
-        <div>
-          <img src="\" class="user-image">
+    <div id="top-nav">
+      <div v-if="fbuser != null" class="before-login float-right">
+        <div class="row">
+          <div class="col-md-2 user-name">{{ fbuser.displayName }}</div>
+          <div class="col-md-1">
+            <img v-bind:src="fbuser.photoURL" class="user-image">
+          </div>
+          <button class="col-md-2 btn" v-on:click="logout()"> logout</button>
         </div>
+      </div>
+      <div v-else class="after-login">
+        <button class="facebook-login-button btn" v-on:click="loginFacebook()">
+          <i class="fa fa-facebook-official" aria-hidden="true"></i> facebook
+        </button>
+        <button class="twitter-login-button btn" v-on:click="loginTwitter()">
+          <i class="fa fa-twitter" aria-hidden="true"></i> twitter
+        </button>
       </div>
     </div>
     <div id="comment">
@@ -99,6 +107,8 @@
 
     <script>
       let datas = [];
+      let fbuser = null;
+      let vue1, vue2;
 
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
@@ -120,23 +130,23 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
         
-        document.getElementsByClassName('twitter-login-button')[0].addEventListener('click', function(event) {
-          event.preventDefault();
-          console.log('click twitter-login-button');
-          loginTwitter();
-        });
+        // document.getElementsByClassName('twitter-login-button')[0].addEventListener('click', function(event) {
+        //   event.preventDefault();
+        //   console.log('click twitter-login-button');
+        //   loginTwitter();
+        // });
    
-        document.getElementsByClassName('logout-button')[0].addEventListener('click', function(event) {
-          event.preventDefault();
-          console.log('click logout-button');
-          logout();
-        });
+        // document.getElementsByClassName('logout-button')[0].addEventListener('click', function(event) {
+        //   event.preventDefault();
+        //   console.log('click logout-button');
+        //   logout();
+        // });
 
-        document.getElementsByClassName('facebook-login-button')[0].addEventListener('click', function(event) {
-          event.preventDefault();
-          console.log('click facebook-login-button');
-          loginFacebook();
-        });
+        // document.getElementsByClassName('facebook-login-button')[0].addEventListener('click', function(event) {
+        //   event.preventDefault();
+        //   console.log('click facebook-login-button');
+        //   loginFacebook();
+        // });
 
         document.getElementsByClassName('comment-submit-btn')[0].addEventListener('click', function(event) {
           event.preventDefault();
@@ -150,26 +160,33 @@
           requestComments();
         });
 
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            // User is signed in.
-            console.log('user');
-
-            document.getElementsByClassName('user-name')[0].innerHTML = user.displayName;
-            document.getElementsByClassName('user-image')[0].src = user.photoURL;
-          } else {
-            // No user is signed in.
-            console.log('no user');
-
-            document.getElementsByClassName('user-name')[0].innerHTML = '';
-            document.getElementsByClassName('user-image')[0].src = '';
-          }
+        firebase.auth().onAuthStateChanged(function(auth) {
+          vue2.fbuser = auth;
+          console.log(fbuser);
         });
 
-        var app = new Vue({
+        vue1 = new Vue({
           el: '#comment-lists',
           data: {
             datas: datas
+          }
+        });
+
+        vue2 = new Vue({
+          el: '#top-nav',
+          data: {
+            fbuser: fbuser
+          },
+          methods: {
+            logout: function() {
+              requestLogout();
+            },
+            loginTwitter: function() {
+              loginTwitter();
+            },
+            loginFacebook: function() {
+              loginFacebook();
+            }
           }
         })
 
@@ -241,7 +258,7 @@
         });
       }
 
-      function logout() {
+      function requestLogout() {
         firebase.auth().signOut();
       }
 
