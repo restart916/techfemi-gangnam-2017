@@ -164,12 +164,32 @@
       }); 
 
       function requestComments() {
-        firebase.database().ref().child('comments').orderByKey().limitToFirst(5).once('value').then(function(snapshot) {
-          snapshot.forEach(function(childSnapshot) {
-            console.log(childSnapshot.val());
-            datas.push(childSnapshot.val());
-          });
-        });;
+
+        let requestCount = 5;
+        let count = datas.length;
+        if (count > 0) {
+          let lastKey = datas[count-1].key;
+
+          firebase.database().ref().child('comments').orderByKey().startAt(lastKey).limitToFirst(requestCount+1).once('value').then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+              let val = childSnapshot.val();
+              val['key'] = childSnapshot.key;
+              console.log(val);
+              if ( datas.findIndex(x => x.key == childSnapshot.key) == -1) {
+                datas.push(val);
+              }
+            });
+          });;  
+        } else {
+          firebase.database().ref().child('comments').orderByKey().limitToFirst(requestCount).once('value').then(function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+              let val = childSnapshot.val();
+              val['key'] = childSnapshot.key;
+              console.log(val);
+              datas.push(val);
+            });
+          });;
+        }
       }
 
       function submitComment() {
