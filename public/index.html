@@ -70,6 +70,11 @@
       <hr>
       <a href="" class="comment-submit-btn btn btn-large">전송</a>
     </div>
+    <div id="lists">
+    </div>
+    <div id="more">
+      <a href="" class="more-btn btn btn-large">더보기</a>
+    </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
 
     <script>
@@ -92,7 +97,7 @@
           console.error(e);
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
-
+        
         document.getElementsByClassName('twitter-login-button')[0].addEventListener('click', function(event) {
           event.preventDefault();
           console.log('click twitter-login-button');
@@ -114,8 +119,13 @@
         document.getElementsByClassName('comment-submit-btn')[0].addEventListener('click', function(event) {
           event.preventDefault();
           console.log('click comment-submit-btn');
-
           submitComment();
+        });
+
+        document.getElementsByClassName('more-btn')[0].addEventListener('click', function(event) {
+          event.preventDefault();
+          console.log('click more-btn');
+          requestComments();
         });
 
         firebase.auth().onAuthStateChanged(function(user) {
@@ -134,6 +144,14 @@
           }
         });
       }); 
+
+      function requestComments() {
+        firebase.database().ref().child('comments').orderByKey().limitToFirst(5).once('value').then(function(snapshot) {
+          let value = snapshot.val();
+          console.log(value);
+        });;
+
+      }
 
       function submitComment() {
         let user = firebase.auth().currentUser;
