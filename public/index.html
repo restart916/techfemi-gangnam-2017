@@ -73,6 +73,12 @@
       }
       #comment-lists img { width: 50px; }
       #more { max-width: 720px; margin: 12px auto 12px; }
+      .submit-result {
+        text-align: center;
+        margin-bottom: 16px;
+        padding: 16px 10px;
+        background-color: rgb(107, 197, 70);
+      }
     </style>
   </head>
   <body>
@@ -119,6 +125,7 @@
       <p>강남역여성살해1주기 추모행사 "나의 두려움은 용기가 되어 돌아왔다" 추모의 글을 올려주세요. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. 테크페미를 만나고 나의 성공시대 시작됐다. </p>
       <input type="text" class="input-comment form-control">
       <hr>
+      <div class="submit-result" style="opacity: -0.1; display: none;">등록되었습니다</div>
       <a href="" class="comment-submit-btn btn btn-large">전송</a>
     </div>
     <div id="">
@@ -308,11 +315,17 @@
       function submitComment() {
         let user = firebase.auth().currentUser;
         if (user == null) {
-          alert('로그인을 해주세요');
+          showMessage("로그인을 해주세요");
           return;
         }
 
+        document.getElementsByClassName('comment-submit-btn')[0].disabled = true;
         let comment = document.getElementsByClassName('input-comment')[0].value;
+
+        if (comment.trim() == '') {
+          showMessage("내용을 입력해주세요");
+          return;
+        }
         console.log(comment);
 
         let object = {
@@ -328,7 +341,10 @@
         updates['/comments/' + newPostKey] = object;
 
         firebase.database().ref().update(updates, function() {
-          alert("success");
+          document.getElementsByClassName('comment-submit-btn')[0].disabled = false;
+          document.getElementsByClassName('input-comment')[0].value = '';
+
+          showMessage("정상적으로 등록되었습니다.");
         });
       }
 
@@ -362,7 +378,7 @@
           // ...
 
           console.log('error');
-          showError(error);
+          showMessage("로그인을 실패했습니다. 다시 시도해 주세요.");
         });
       }
 
@@ -393,13 +409,46 @@
           var credential = error.credential;
           // ...
           console.log('twitter error');
-          showError(error);
+          showMessage("로그인을 실패했습니다. 다시 시도해 주세요.");
         });
         //*/
       }
 
-      function showError(error) {
-        alert(error.message);
+      function showMessage(message) {
+        var result = document.getElementsByClassName('submit-result')[0];
+        result.innerHTML = message
+        fadeIn(result);
+        setTimeout(function() {
+          fadeOut(result);
+        }, 2000);
+      }
+
+
+      // fade out
+      function fadeOut(el){
+        el.style.opacity = 1;
+
+        (function fade() {
+          if ((el.style.opacity -= .1) < 0) {
+            el.style.display = "none";
+          } else {
+            requestAnimationFrame(fade);
+          }
+        })();
+      }
+
+      // fade in
+      function fadeIn(el, display){
+        el.style.opacity = 0;
+        el.style.display = display || "block";
+
+        (function fade() {
+          var val = parseFloat(el.style.opacity);
+          if (!((val += .1) > 1)) {
+            el.style.opacity = val;
+            requestAnimationFrame(fade);
+          } 
+        })();
       }
 
     </script>
