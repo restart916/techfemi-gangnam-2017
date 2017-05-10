@@ -420,35 +420,36 @@
         fadeIn(result);
         setTimeout(function() {
           fadeOut(result);
-        }, 2000);
+        }, 1300);
       }
 
 
       // fade out
-      function fadeOut(el){
-        el.style.opacity = 1;
-
-        (function fade() {
-          if ((el.style.opacity -= .1) < 0) {
-            el.style.display = "none";
-          } else {
-            requestAnimationFrame(fade);
+      function fadeOut(el) {
+        var op = 1;
+        var timer = setInterval(function () {
+          if (op <= 0.1){
+            clearInterval(timer);
+            el.style.display = 'none';
           }
-        })();
+          el.style.opacity = op;
+          op -= op * 0.1;
+        }, 10);
       }
 
       // fade in
-      function fadeIn(el, display){
-        el.style.opacity = 0;
-        el.style.display = display || "block";
-
-        (function fade() {
-          var val = parseFloat(el.style.opacity);
-          if (!((val += .1) > 1)) {
-            el.style.opacity = val;
-            requestAnimationFrame(fade);
-          } 
-        })();
+      function fadeIn(el) {
+        var op = 0;
+        el.style.opacity = op;
+        el.style.display = '';
+        
+        var timer = setInterval(function () {
+          if (op >= 1.0){
+            clearInterval(timer);
+          }
+          el.style.opacity = op;
+          op = op + 0.1;
+        }, 30);
       }
 
     </script>
