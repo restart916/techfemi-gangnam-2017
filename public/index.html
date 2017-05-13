@@ -337,6 +337,13 @@
           showMessage("내용을 입력해주세요");
           return;
         }
+
+        let len = comment.length;
+        if (len > 140) {
+          showMessage("내용은 140자를 넘을 수 없습니다.");
+          return;  
+        }
+
         console.log(comment);
 
         let object = {
