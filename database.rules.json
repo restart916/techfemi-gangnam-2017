@@ -3,7 +3,7 @@
     ".read": true,
     "comments": {
       "$object": {
-      	".validate": "newData.hasChild('comment') && newData.child('comment').val().length < 140 && auth != null && !root.child('blockUsers').hasChild(auth.uid)",
+      	".validate": "newData.hasChild('comment') && newData.child('comment').val().length <= 140 && auth != null && !root.child('blockUsers').hasChild(auth.uid)",
       }
     },
     ".write": "auth != null"
