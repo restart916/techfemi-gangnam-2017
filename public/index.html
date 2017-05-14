@@ -57,7 +57,8 @@
         body { border-top: 16px solid #ffa100; }
       }
       #top-nav { max-width: 720px; margin: 12px auto 12px; }
-      #top-nav .user-image { width: 30px;  }
+      #top-nav .user-image { width: 30px; }
+      #top-nav .before-login .float { float: left; }
       #comment-lists { 
         padding: 0px; 
         text-align: center;
@@ -84,8 +85,6 @@
         -moz-transition:-moz-transform .15s linear;
         -o-transition:-o-transform .15s linear;
         -webkit-transition:-webkit-transform .15s linear;
-
-
 
         /*
         list-style:none;
@@ -162,13 +161,13 @@
        }(document, 'script', 'facebook-jssdk'));
     </script>
     <div id="top-nav">
-      <div v-if="fbuser != null" class="before-login float-right">
-        <div class="row">
-          <div class="col-md-2 user-name">{{ fbuser.displayName }}</div>
-          <div class="col-md-1">
-            <img v-bind:src="fbuser.photoURL" class="user-image">
-          </div>
-          <button class="col-md-2 btn" v-on:click="logout()"> logout</button>
+      <div v-if="fbuser != null" class="before-login">
+        <div class="user-name float">{{ fbuser.displayName }}</div>
+        <div class="float">
+          <img v-bind:src="fbuser.photoURL" class="user-image"></img>
+        </div>
+        <div class="">
+          <button class="btn" v-on:click="logout()"> logout</button>
         </div>
       </div>
       <div v-else class="after-login">
@@ -195,7 +194,7 @@
       <br>
       <a href="http://www.ohmynews.com/NWS_Web/Mobile/at_pg.aspx?CNTN_CD=A0002211211&CMPT_CD=MMORE#cb" target="_blank">http://www.ohmynews.com/NWS_Web/Mobile/at_pg.aspx?CNTN_CD=A0002211211&CMPT_CD=MMORE#cb</a>
       </p>
-      <input type="text" class="input-comment form-control">
+      <input type="text" class="input-comment form-control" maxlength="140">
       <hr>
       <div class="submit-result" style="opacity: -0.1; display: none;">등록되었습니다</div>
       <a href="" class="comment-submit-btn btn btn-large">전송</a>
@@ -229,6 +228,7 @@
     <script>
       const requestCount = 9;
       let datas = [];
+      let blockUsers = [];
       let fbuser = null;
       let vue1, vue2;
 
@@ -357,6 +357,11 @@
             }
           }
         );
+        firebase.database().ref().child('blockUsers').on('child_added',
+          function(data) {
+            blockUsers.push(data.key);
+          }
+        );
       }); 
 
       function deleteComment(key) {
@@ -439,6 +444,12 @@
           return;  
         }
 
+        let uid = user.uid;
+        if (blockUsers.findIndex(x => x == uid) != -1) {
+          showMessage("현재 내용을 작성 할 수 없습니다.");
+          return;  
+        }
+          
         // console.log(comment);
         let object = {
           uid : user.uid,
