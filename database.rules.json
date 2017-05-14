@@ -2,7 +2,10 @@
   "rules": {
     ".read": true,
     "comments": {
-      ".write": "newData.hasChild('comment') && newData.child('comment').val().length < 140"
-    }
+      "$object": {
+      	".validate": "newData.hasChild('comment') && newData.child('comment').val().length < 140"
+      }
+    },
+    ".write": "auth != null"
   }
 }
