@@ -1,6 +1,8 @@
 {
   "rules": {
     ".read": true,
-    ".write": "auth != null"
+    "comments": {
+      ".write": "newData.hasChild('comment') && newData.child('comment').val().length < 140"
+    }
   }
 }
