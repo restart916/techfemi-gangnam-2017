@@ -50,7 +50,10 @@
       #comment h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
       #comment p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
       #comment a.comment-submit-btn{ display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #comment, #comment a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #comment { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+      #comment p.addition-text {
+        font-size:12px;
+      }
       #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
       @media (max-width: 600px) {
         body, #comment { margin-top: 0; background: white; box-shadow: none; }
@@ -85,18 +88,16 @@
         -moz-transition:-moz-transform .15s linear;
         -o-transition:-o-transform .15s linear;
         -webkit-transition:-webkit-transform .15s linear;
-
-        /*
-        list-style:none;
-        list-style-type: none;
-        background: white; max-width: 720px; margin: 12px auto 12px; padding: 12px 24px; border-radius: 3px; 
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        */
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
            -moz-animation: fadein 2s; /* Firefox < 16 */
             -ms-animation: fadein 2s; /* Internet Explorer */
              -o-animation: fadein 2s; /* Opera < 12.1 */
                 animation: fadein 2s;
+      }
+      @media (max-width: 600px) {
+        #comment-lists li { 
+          margin:-3px;
+        }
       }
       #comment-lists li .data-comment {
         font-family: KimNamyun;
@@ -180,19 +181,31 @@
       </div>
     </div>
     <div id="comment">
-      <h2>테크페미</h2>
-      <h1>우리의 두려움은 용기가 되어 돌아왔다 - 범페미네트워크</h1>
-      <p>한 장, 두 장, ... 그리고 2만 4천 개의 포스트잇. "한 개인으로 인해 저질러진 것이지만 그 배후에는 대한민국 사회라는 공범이 있다"는 공감대a)에서 모인 사람들이 남긴 메시지입니다.<br>
-      나는, 그는, 우리는 사건 이전과 이후 똑같을 수 없고, 같아서도 안될 것입니다.<br>
-      강남역 여성살해사건 1주기를 맞아, 물리적인 장소에 모두 모이지 못하더라도 여성혐오 없는 사회를 만들기 위한 생각들을 다시금 모아봅시다.<br>
+      <!-- <h2>테크페미</h2> -->
+      <h1>우리가 우연히 살아남은 1년 그 이후</h1>
+      <p>
+      강남역 여성살해사건 이후 1년이 지났습니다. <br>
+      당시 강남역 10번 출구 인근에서는 많은 사람이 익명으로 포스트잇을 작성하여 젠더폭력에 대한 자신의 경험을 전했습니다. 
+      우리는 서로의 경험에 공감하기도 하고 함께 분노하기도 했으며 이를 계기로 페미니스트로서의 자신을 발견하기도 했습니다.
+      <a href="https://twitter.com/techfemi" target="_blank">테크페미(@techfemi)</a>는 다시금 추모의 시간을 가지고 사건 이후 우리 모두 어떻게 '살아 남았는지' 에 대해 이야기 하고자 공간을 만들게 되었습니다. <br>
+      문제가 있거나 궁금하신 점은 techfemi.kr@gmail.com으로 문의 바랍니다.<br>
+      </p>
+      <p class="addition-text">
+      ## 알려드립니다 ##<br>
+      1. 게시물 관리정책<br>
       <br>
-      추모와 평화의 메시지를 남겨주세요.<br>
-      주변 사람들에게 공유해주시고, 목소리를 내어 함께 연대해주세요.<br>
-      평등하고 정의롭기에 안전한 사회를 만들기 위한 노력에 동참해주세요. <br>
+      장애, 성별, 국적, 인종이나 민족, 종교, 성적 지향에 대한 비방 및 혐오와 욕설을 포함함 메세지는 관리자에 의해 임의로 삭제됩니다. <br>
+      해당 메세지의 작성자는 향후 메세지를 작성할 수 없을 수도 있습니다.<br>
       <br>
-      ※욕설 혹은 타인을 비방한 글은 홈페이지 관리자에 의해 임의삭제될 수 있으며, 이후 형사조치될 수 있음을 알려드립니다.<br>
+      2. 개인정보처리방침<br>
+      <br>  
+      추모 메세지를 작성하시면 아래 개인정보의 수집 및 이용에 동의하신 것으로 간주합니다.<br>
+       - 개인정보 수집항목<br>
+          [페이스북 계정으로 로그인 시] 이메일, 이름, 서비스 이용기록(방문일시)<br>
+          [트위터로 계정으로 로그인 시] 이메일, 닉네임, 서비스 이용기록(방문일시)<br>
+       - 개인정보 수집목적: 로그인 기반 메세지 작성 서비스 제공 및 고객대응<br>
+       - 개인정보 보유 및 이용기간: 목적 달성 후 지체없이 파기<br>
       <br>
-      <a href="http://www.ohmynews.com/NWS_Web/Mobile/at_pg.aspx?CNTN_CD=A0002211211&CMPT_CD=MMORE#cb" target="_blank">http://www.ohmynews.com/NWS_Web/Mobile/at_pg.aspx?CNTN_CD=A0002211211&CMPT_CD=MMORE#cb</a>
       </p>
       <input type="text" class="input-comment form-control" maxlength="140">
       <hr>
@@ -426,7 +439,7 @@
       function submitComment() {
         let user = firebase.auth().currentUser;
         if (user == null) {
-          showMessage("로그인을 해주세요");
+          showMessage("추모 메세지를 입력해주세요.");
           return;
         }
 
@@ -434,20 +447,20 @@
         let comment = document.getElementsByClassName('input-comment')[0].value;
 
         if (comment.trim() == '') {
-          showMessage("내용을 입력해주세요");
+          showMessage("추모 메세지를 입력해주세요.");
           return;
         }
 
         let len = comment.length;
         if (len > 140) {
-          showMessage("내용은 140자를 넘을 수 없습니다.");
+          showMessage("추모 메세지는 140자 미만으로 작성해주세요.");
           return;  
         }
 
         // 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
         let uid = user.uid;
         if (blockUsers.findIndex(x => x == uid) != -1) {
-          showMessage("현재 내용을 작성 할 수 없습니다.");
+          showMessage("추모 메세지를 작성할 수 없습니다. 자세한 사항은 아래 메일로 문의바랍니다.");
           return;  
         }
           
@@ -469,8 +482,19 @@
           document.getElementsByClassName('comment-submit-btn')[0].disabled = false;
           document.getElementsByClassName('input-comment')[0].value = '';
 
-          showMessage("정상적으로 등록되었습니다.");
-        });
+          showMessage("추모 메세지가 등록 되었습니다.");
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+
+          showMessage("추모 메세지를 작성할 수 없습니다.  잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
+        });;
       }
 
       function requestLogout() {
@@ -503,7 +527,7 @@
           // ...
 
           console.log('error');
-          showMessage("로그인을 실패했습니다. 다시 시도해 주세요.");
+          showMessage("로그인을 할 수 없니다. 잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
         });
       }
 
@@ -534,7 +558,7 @@
           var credential = error.credential;
           // ...
           console.log('twitter error');
-          showMessage("로그인을 실패했습니다. 다시 시도해 주세요.");
+          showMessage("로그인을 할 수 없니다. 잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
         });
         //*/
       }
