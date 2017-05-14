@@ -9,8 +9,9 @@ admin.initializeApp(functions.config().firebase);
 // exports.helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
-
-exports.test3 = functions.database.ref('/comments/{objectId}/comment')
+var moment = require('moment-timezone');
+	  	
+exports.test4 = functions.database.ref('/comments/{objectId}/comment')
     .onWrite(event => {
 	    // Grab the current value of what was written to the Realtime Database.
 	    const comment = event.data.val();
@@ -23,12 +24,15 @@ exports.test3 = functions.database.ref('/comments/{objectId}/comment')
 	    let len = comment.length;
 	    console.log('test len:', len);
 
-	    if (len > 30) {
-			console.log('delete data');
-			return event.data.ref.parent.remove();
-	    }
+	  //   if (len > 30) {
+			// console.log('delete data');
+			// return event.data.ref.parent.remove();
+	  //   }
 
-	    let datetime = new Date();
+
+	    let datetime = moment().tz("Asia/Seoul").format('YYYY-MM-DD HH:mm:ss');
+	    console.log('datetime', datetime);
+	    // ;
 	    return event.data.ref.parent.child('datetime').set(datetime);
 
 	    // You must return a Promise when performing asynchronous tasks inside a Functions such as
