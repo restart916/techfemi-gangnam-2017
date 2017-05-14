@@ -60,19 +60,80 @@
       #top-nav .user-image { width: 30px;  }
       #comment-lists { 
         padding: 0px; 
+        text-align: center;
+      }
+      @font-face {
+        font-family: KimNamyun;
+        src: url(font/KimNamyun.ttf);
       }
       #comment-lists li { 
+        overflow:hidden;
+        padding:3em;
+        margin:20px;
+        /*float:left;*/
+        text-decoration:none;
+        color:#000;
+        background:#ffc;
+        display:inline-block; /* display:block; */
+        height:16em;
+        width:16em;
+        padding:1em;
+        -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+        -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+        box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+        -moz-transition:-moz-transform .15s linear;
+        -o-transition:-o-transform .15s linear;
+        -webkit-transition:-webkit-transform .15s linear;
+
+
+
+        /*
+        list-style:none;
         list-style-type: none;
         background: white; max-width: 720px; margin: 12px auto 12px; padding: 12px 24px; border-radius: 3px; 
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        */
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
            -moz-animation: fadein 2s; /* Firefox < 16 */
             -ms-animation: fadein 2s; /* Internet Explorer */
              -o-animation: fadein 2s; /* Opera < 12.1 */
                 animation: fadein 2s;
       }
+      #comment-lists li .data-comment {
+        font-family: KimNamyun;
+        font-size: 25px;
+      }
+      #comment-lists li:nth-child(even){
+        -o-transform:rotate(4deg);
+        -webkit-transform:rotate(4deg);
+        -moz-transform:rotate(4deg);
+        position:relative;
+        top:5px;
+        background:#cfc;
+      }
+      #comment-lists li:nth-child(3n){
+        -o-transform:rotate(-3deg);
+        -webkit-transform:rotate(-3deg);
+        -moz-transform:rotate(-3deg);
+        position:relative;
+        top:-5px;
+        background:#ccf;
+      }
+
+      #comment-lists li:hover,#comment-lists li :focus{
+        -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+        -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+        box-shadow:10px 10px 7px rgba(0,0,0,.7);
+        -webkit-transform: scale(1.25);
+        -moz-transform: scale(1.25);
+        -o-transform: scale(1.25);
+        position:relative;
+        z-index:5;
+      } 
+      
       #comment-lists img { width: 50px; }
       #more { max-width: 720px; margin: 12px auto 12px; }
+      #more a{ display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
       .submit-result {
         text-align: center;
         margin-bottom: 16px;
@@ -143,18 +204,14 @@
       <ul id="comment-lists">
         <li v-for="data in datas">
           <div class="row">
-            <div class="col-md-2 data-user-name">{{ data.username }}</div>
-            <div class="col-md-2">
-              <img v-bind:src="data.userPhotoUrl" class="data-user-image">
-            </div>
-            <div class="col-md-8 data-comment">{{ data.comment }}</div>
-            
-            <button class="facebook-share-button btn" v-on:click="shareFacebook(data.comment)">
-              <i class="fa fa-facebook-official" aria-hidden="true"></i> facebook 공유
-            </button>
-            <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://goo.gl/FY4AYK&text='+data.comment" target="_blank">
-              <i class="fa fa-twitter" aria-hidden="true"></i> twitter 공유
+            <div class="col-md-8 data-comment">{{ data.comment }} {{ data.datetime }}
+            <a class="facebook-share-button btn" v-on:click="shareFacebook(data.comment)">
+              <i class="fa fa-facebook-official" aria-hidden="true"></i>
             </a>
+            <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://goo.gl/FY4AYK&text='+data.comment" target="_blank">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+            </div>
           </div>
         </li>
       </ul>
@@ -165,7 +222,7 @@
     <p id="load">Firebase SDK Loading&hellip;</p>
 
     <script>
-      const requestCount = 5;
+      const requestCount = 9;
       let datas = [];
       let fbuser = null;
       let vue1, vue2;
@@ -228,7 +285,7 @@
 
         firebase.auth().onAuthStateChanged(function(auth) {
           vue2.fbuser = auth;
-          console.log(fbuser);
+          // console.log(fbuser);
         });
 
         vue1 = new Vue({
@@ -267,8 +324,6 @@
           function(data) {
             let val = data.val();
             val['key'] = data.key;
-            console.log('child_added');
-            console.log(val);
             if ( datas.findIndex(x => x.key == data.key) == -1) {
               datas.unshift(val);
             }
@@ -312,7 +367,8 @@
         snapshot.forEach(function(childSnapshot) {
           let val = childSnapshot.val();
           val['key'] = childSnapshot.key;
-          console.log(val);
+          val['datetime'] = new Date(childSnapshot.datetime);
+          // console.log(val);
           if ( datas.findIndex(x => x.key == childSnapshot.key) == -1) {
             newDatas.push(val);
           }
@@ -344,12 +400,12 @@
           return;  
         }
 
-        console.log(comment);
-
+        // console.log(comment);
         let object = {
+          uid : user.uid,
           username : user.displayName,
           userPhotoUrl : user.photoURL,
-          comment : comment
+          comment : comment,
         };
 
         // Get a key for a new Post.
