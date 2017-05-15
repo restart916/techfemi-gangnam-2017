@@ -61,7 +61,10 @@
       }
       #top-nav { max-width: 720px; margin: 12px auto 12px; }
       #top-nav .user-image { width: 30px; }
-      #top-nav .before-login .float { float: left; }
+      #top-nav .after-login .float { 
+        float: left;
+        padding-right: 20px; 
+      }
       #comment-lists { 
         padding: 0px; 
         text-align: center;
@@ -99,7 +102,15 @@
           margin:-3px;
         }
       }
+
+      #comment-lists li .comment-div {
+        position: relative;
+        height: 100%;
+        text-align: left;
+      }
+      
       #comment-lists li .data-comment {
+        word-break: break-all;
         font-family: KimNamyun;
         font-size: 25px;
       }
@@ -130,6 +141,13 @@
         position:relative;
         z-index:5;
       } 
+
+      #comment-lists li .data-datetime {
+        position: absolute;
+        bottom: 0; 
+        width: 100%; 
+        height: 50px; 
+      }
       
       #comment-lists img { width: 50px; }
       #more { max-width: 720px; margin: 12px auto 12px; }
@@ -138,7 +156,15 @@
         text-align: center;
         margin-bottom: 16px;
         padding: 16px 10px;
-        background-color: rgb(107, 197, 70);
+        color: rgb(60, 118, 61);
+        background-color: rgb(223, 240, 216);
+      }
+      .submit-result-fail {
+        text-align: center;
+        margin-bottom: 16px;
+        padding: 16px 10px;
+        color: rgb(169, 68, 66);
+        background-color: rgb(242, 222, 222);
       }
     </style>
   </head>
@@ -162,7 +188,7 @@
        }(document, 'script', 'facebook-jssdk'));
     </script>
     <div id="top-nav">
-      <div v-if="fbuser != null" class="before-login">
+      <div v-if="fbuser != null" class="after-login">
         <div class="user-name float">{{ fbuser.displayName }}</div>
         <div class="float">
           <img v-bind:src="fbuser.photoURL" class="user-image"></img>
@@ -171,7 +197,7 @@
           <button class="btn" v-on:click="logout()"> logout</button>
         </div>
       </div>
-      <div v-else class="after-login">
+      <div v-else class="before-login">
         <button class="facebook-login-button btn" v-on:click="loginFacebook()">
           <i class="fa fa-facebook-official" aria-hidden="true"></i> facebook 로그인
         </button>
@@ -209,34 +235,47 @@
       </p>
       <input type="text" class="input-comment form-control" maxlength="140">
       <hr>
-      <div class="submit-result" style="opacity: -0.1; display: none;">등록되었습니다</div>
+      <div>
+        <div class="submit-result" style="opacity: -0.1; display: none;">
+          등록되었습니다
+        </div>
+        <div class="submit-result-fail" style="opacity: -0.1; display: none;">
+          <button type="button" class="close" onclick="hideMessage()" aria-label="Close">
+              <span aria-hidden="true">×</span>
+          </button>
+          <span class="result-fail-message"></span>
+        </div>
+      </div>
       <a href="" class="comment-submit-btn btn btn-large">전송</a>
     </div>
     <div id="">
       <ul id="comment-lists">
         <li v-for="data in datas">
-          <div class="row">
-            <div class="col-md-8 data-comment">{{ data.comment }} {{ data.datetime }}
-            <div v-if="fbuser != null && fbuser.uid == data.uid" class="delete-btn">
-              <a class="comment-delete-button btn" v-on:click="deleteComment(data.key)">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
+          <div class="comment-div">
+            <div class="data-comment">{{ data.comment }}
+            </div>
+            <div class="data-datetime">
+              {{ data.datetime }}
+            </div>
+            <div class="data-share">
+              <div v-if="fbuser != null && fbuser.uid == data.uid" class="delete-btn">
+                <a class="comment-delete-button btn" v-on:click="deleteComment(data.key)">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </div>
+              <a class="facebook-share-button btn" v-on:click="shareFacebook(data.comment)">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+              </a>
+              <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://goo.gl/FY4AYK&text='+data.comment" target="_blank">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
               </a>
             </div>
-            <a class="facebook-share-button btn" v-on:click="shareFacebook(data.comment)">
-              <i class="fa fa-facebook-official" aria-hidden="true"></i>
-            </a>
-            <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://goo.gl/FY4AYK&text='+data.comment" target="_blank">
-              <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-            </div>
-          </div>
         </li>
       </ul>
     </div>
     <div id="more">
       <a href="" class="more-btn btn btn-large">더보기</a>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
     <script>
       const requestCount = 9;
@@ -259,10 +298,10 @@
         try {
           let app = firebase.app();
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+          //document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
           console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+          //document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
         
         // document.getElementsByClassName('twitter-login-button')[0].addEventListener('click', function(event) {
@@ -458,6 +497,7 @@
         }
 
         // 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+        // 한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십
         let uid = user.uid;
         if (blockUsers.findIndex(x => x == uid) != -1) {
           showMessage("추모 메세지를 작성할 수 없습니다. 자세한 사항은 아래 메일로 문의바랍니다.");
@@ -482,7 +522,7 @@
           document.getElementsByClassName('comment-submit-btn')[0].disabled = false;
           document.getElementsByClassName('input-comment')[0].value = '';
 
-          showMessage("추모 메세지가 등록 되었습니다.");
+          showMessage("추모 메세지가 등록 되었습니다.", true);
         }).catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
@@ -563,15 +603,28 @@
         //*/
       }
 
-      function showMessage(message) {
-        var result = document.getElementsByClassName('submit-result')[0];
-        result.innerHTML = message
-        fadeIn(result);
-        setTimeout(function() {
-          fadeOut(result);
-        }, 1300);
+      function showMessage(message, autoHide = false) {
+        if (autoHide) {
+          hideMessage();
+          var result = document.getElementsByClassName('submit-result')[0];
+          result.innerHTML = message;
+          fadeIn(result);
+          setTimeout(function() {
+            fadeOut(result);
+          }, 1300);
+        }
+        else {
+          var result = document.getElementsByClassName('submit-result-fail')[0];
+          var messageDiv = document.getElementsByClassName('result-fail-message')[0];
+          messageDiv.innerHTML = message;
+          fadeIn(result);
+        }
       }
 
+      function hideMessage() {
+        var result = document.getElementsByClassName('submit-result-fail')[0];
+        fadeOut(result);
+      }
 
       // fade out
       function fadeOut(el) {
