@@ -59,7 +59,11 @@
         body, #comment { margin-top: 0; background: white; box-shadow: none; }
         body { border-top: 16px solid #ffa100; }
       }
-      #top-nav { max-width: 720px; margin: 12px auto 12px; }
+      #top-nav { 
+        max-width: 720px; 
+        margin: 12px auto 12px; 
+        padding: 0px 24px;
+      }
       #top-nav .user-image { width: 30px; }
       #top-nav .after-login .float { 
         float: left;
@@ -70,19 +74,18 @@
         text-align: center;
       }
       @font-face {
-        font-family: KimNamyun;
-        src: url(font/KimNamyun.ttf);
+        font-family: SDMiSaeng;
+        src: url(font/SDMiSaeng.ttf);
       }
       #comment-lists li { 
         overflow:hidden;
-        padding:3em;
-        margin:20px;
-        /*float:left;*/
+        margin:16px;
         text-decoration:none;
         color:#000;
         background:#ffc;
         display:inline-block; /* display:block; */
-        height:16em;
+        /*height:16em;*/
+        min-height:10em;
         width:16em;
         padding:1em;
         -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
@@ -111,8 +114,9 @@
       
       #comment-lists li .data-comment {
         word-break: break-all;
-        font-family: KimNamyun;
-        font-size: 25px;
+        font-family: SDMiSaeng;
+        font-size: 20px;
+        margin-bottom: 63px;
       }
       #comment-lists li:nth-child(even){
         -o-transform:rotate(4deg);
@@ -131,7 +135,7 @@
         background:#ccf;
       }
 
-      #comment-lists li:hover,#comment-lists li :focus{
+      #comment-lists li:hover,#comment-lists li:focus{
         -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
         -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
         box-shadow:10px 10px 7px rgba(0,0,0,.7);
@@ -146,7 +150,18 @@
         position: absolute;
         bottom: 0; 
         width: 100%; 
-        height: 50px; 
+        height: 51px; 
+        font-size: 12px
+      }
+      #comment-lists li .data-share {
+        position: absolute;
+        bottom: 0; 
+        width: 100%; 
+        height: 31px; 
+      }
+      #comment-lists li .share-btn-item {
+        margin-left: -13px;
+        float: left;
       }
       
       #comment-lists img { width: 50px; }
@@ -258,17 +273,21 @@
               {{ data.datetime }}
             </div>
             <div class="data-share">
-              <div v-if="fbuser != null && fbuser.uid == data.uid" class="delete-btn">
+              <div v-if="fbuser != null && fbuser.uid == data.uid" class="delete-btn share-btn-item" style="float: left;">
                 <a class="comment-delete-button btn" v-on:click="deleteComment(data.key)">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
               </div>
-              <a class="facebook-share-button btn" v-on:click="shareFacebook(data.comment)">
-                <i class="fa fa-facebook-official" aria-hidden="true"></i>
-              </a>
-              <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://goo.gl/FY4AYK&text='+data.comment" target="_blank">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
+              <div class="share-btn-item">
+                <a class="facebook-share-button btn" v-on:click="shareFacebook(data.comment)">
+                  <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div class="share-btn-item">
+                <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://goo.gl/FY4AYK&text='+data.comment" target="_blank">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+              </div>
             </div>
         </li>
       </ul>
