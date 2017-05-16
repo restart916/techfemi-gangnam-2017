@@ -207,7 +207,7 @@
         -moz-transform:rotate(4deg);
         position:relative;
         top:5px;
-        background:#cfc;
+        background:#d8f5a2;
       }
       #comment-lists li:nth-child(3n){
         -o-transform:rotate(-3deg);
@@ -215,7 +215,7 @@
         -moz-transform:rotate(-3deg);
         position:relative;
         top:-5px;
-        background:#ccf;
+        background:#d0bfff;
       }
 
 /*      #comment-lists li:hover,#comment-lists li:focus{
@@ -279,6 +279,9 @@
         color: rgb(169, 68, 66);
         background-color: rgb(242, 222, 222);
       }
+      .trigger {
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
@@ -335,9 +338,8 @@
 
         </p>
         <p class="addition-text">
-        <strong>
-        <img class="pin" src="https://abs.twimg.com/emoji/v1/72x72/1f4cc.png">알려드립니다<br>
-      
+        <strong class="trigger">
+        알려드립니다<br>
         </strong>
         <strong>1. 게시물관리정책</strong><br>
         장애, 성별, 국적, 인종이나 민족, 종교, 성적 지향에 대한 비방 및 혐오와 욕설을 포함한 메시지는 임의로 삭제됩니다. <br>
@@ -351,7 +353,7 @@
          - 개인정보 보유 및 이용 기간: 목적 달성 후 지체 없이 파기<br>
         <br>
         </p>
-        <input type="text" class="input-comment form-control" maxlength="140" placeholder="추모 메세지를 작성해 주세요">
+        <input type="text" class="input-comment form-control" maxlength="140" placeholder="추모 메시지를 작성해 주세요">
         <hr>
         <div>
           <div class="submit-result" style="opacity: -0.1; display: none;">
@@ -387,7 +389,7 @@
                   </a>
                 </div>
                 <div class="share-btn-item">
-                  <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://remember-160517.com/&text='+data.comment" target="_blank">
+                  <a class="twitter-share-button btn" v-bind:href="'http://twitter.com/share?url=https://remember-160517.com/&text='+data.comment+'&hashtags=강남역1주기,우리의_두려움은_용기가_되어_돌아왔다'" target="_blank">
                     <i class="fa fa-twitter" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -601,7 +603,7 @@
       function submitComment() {
         let user = firebase.auth().currentUser;
         if (user == null) {
-          showMessage("로그인을 하시면 추모 메세지를 작성할 수 있습니다.");
+          showMessage("로그인을 하시면 추모 메시지를 작성할 수 있습니다.");
           return;
         }
 
@@ -609,13 +611,13 @@
         let comment = document.getElementsByClassName('input-comment')[0].value;
 
         if (comment.trim() == '') {
-          showMessage("추모 메세지를 입력해주세요.");
+          showMessage("추모 메시지를 입력해주세요.");
           return;
         }
 
         let len = comment.length;
         if (len > 140) {
-          showMessage("추모 메세지는 140자 미만으로 작성해주세요.");
+          showMessage("추모 메시지는 140자 미만으로 작성해주세요.");
           return;  
         }
 
@@ -623,7 +625,7 @@
         // 한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십
         let uid = user.uid;
         if (blockUsers.findIndex(x => x == uid) != -1) {
-          showMessage("추모 메세지를 작성할 수 없습니다. 자세한 사항은 아래 메일로 문의바랍니다.");
+          showMessage("추모 메시지를 작성할 수 없습니다. 자세한 사항은 아래 메일로 문의바랍니다.");
           return;  
         }
           
@@ -645,7 +647,7 @@
           document.getElementsByClassName('comment-submit-btn')[0].disabled = false;
           document.getElementsByClassName('input-comment')[0].value = '';
 
-          showMessage("추모 메세지가 등록 되었습니다.", true);
+          showMessage("추모 메시지가 등록 되었습니다.", true);
         }).catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
@@ -656,7 +658,7 @@
           var credential = error.credential;
           // ...
 
-          showMessage("추모 메세지를 작성할 수 없습니다.  잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
+          showMessage("추모 메시지를 작성할 수 없습니다.  잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
         });;
       }
 
