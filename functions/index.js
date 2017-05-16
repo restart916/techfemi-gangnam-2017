@@ -30,7 +30,7 @@ exports.test4 = functions.database.ref('/comments/{objectId}/comment')
 	  //   }
 
 
-	    let datetime = moment().tz("Asia/Seoul").format('YYYY-MM-DD HH:mm:ss');
+	    let datetime = moment().tz("Asia/Seoul").format('YY-MM-DD HH:mm');
 	    console.log('datetime', datetime);
 	    // ;
 	    return event.data.ref.parent.child('datetime').set(datetime);
