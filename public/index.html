@@ -66,6 +66,11 @@
       .card-columns {
         column-count: 5;
       }
+      @media (max-width: 600px) {
+        .card-columns {
+          column-count: 1;
+        }
+      }
       #comment-lists { 
         padding: 0px; 
         text-align: center;
@@ -75,6 +80,9 @@
         src: url(font/SDMiSaeng.ttf);
       }
       #comment-lists .card { 
+        display: block;
+        flex-basis: 33.3%; /* change this value for each breakpoint*/
+
         overflow:hidden;
         margin:16px;
         text-decoration:none;
@@ -83,7 +91,7 @@
         display:inline-block; /* display:block; */
         /*height:16em;*/
         min-height:10em;
-        width:16em;
+        /*width:16em;*/
         padding:1em;
         -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
         -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
