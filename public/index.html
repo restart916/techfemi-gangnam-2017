@@ -681,10 +681,9 @@
       }
 
       function loginTwitter() {
-        
         var provider = new firebase.auth.TwitterAuthProvider();
         provider.setCustomParameters({
-          'lang': 'es'
+          'lang': 'kr'
         });
 
         firebase.auth().signInWithPopup(provider).then(function(result) {
