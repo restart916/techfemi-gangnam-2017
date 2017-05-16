@@ -55,7 +55,11 @@
       }
       #comment h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
       #comment h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #comment p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+      #comment p { 
+        line-height: 26px; 
+        margin: 16px 0 24px; 
+        font-size: 14px; 
+      }
       #comment a.comment-submit-btn{ display: block; text-align: center; background: #363a3c; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
       #comment { 
         /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
@@ -63,6 +67,18 @@
       }
       #comment p.addition-text {
         font-size:12px;
+        line-height: 22px;
+      }
+      .before-login, .after-login {
+        margin-left: auto;
+      }
+      .before-login .facebook-login-button {
+        background-color: rgb(59, 89, 152);
+        color: white;
+      }
+      .before-login .twitter-login-button {
+        background-color: rgb(51, 204, 255);
+        color: white;
       }
       #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
       @media (max-width: 600px) {
@@ -70,14 +86,29 @@
         body { border-top: 16px solid #ffa100; }
       }
       #top-nav { 
+        display: flex;
         max-width: 720px; 
         margin: 12px auto 12px; 
-        padding: 0px 24px;
+        padding: 0px 0px;
       }
       #top-nav .user-image { width: 30px; }
-      #top-nav .after-login .float { 
+      #top-nav .after-login {
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+      }
+      #top-nav .after-login .user-name {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        padding-right: 20px;
+      }
+      #top-nav .after-login .float {
         float: left;
-        padding-right: 20px; 
+      }
+      #top-nav .after-login .logout-button { 
+        background-color: #fcfcfc;
+        border-color: #999999;
       }
       #comment-lists { 
         column-width: 250px;
@@ -222,16 +253,16 @@
     </script>
     <div id="top-nav">
       <div v-if="fbuser != null" class="after-login">
-        <div class="user-name float">{{ fbuser.displayName }}</div>
-        <div class="float">
+        <div class="user-name float">{{ fbuser.displayName }} 님</div>
+<!--         <div class="float">
           <img v-bind:src="fbuser.photoURL" class="user-image"></img>
-        </div>
-        <div class="">
-          <button class="btn" v-on:click="logout()"> logout</button>
+        </div> -->
+        <div class="float">
+          <button class="logout-button btn" v-on:click="logout()"> logout</button>
         </div>
       </div>
       <div v-else class="before-login">
-        <button class="facebook-login-button btn" v-on:click="loginFacebook()">
+        <button class="facebook-login-button btn float" v-on:click="loginFacebook()">
           <i class="fa fa-facebook-official" aria-hidden="true"></i> facebook 로그인
         </button>
         <button class="twitter-login-button btn" v-on:click="loginTwitter()">
@@ -253,14 +284,13 @@
       <p class="addition-text">
       <strong>
       ## 알려드립니다 ##<br>
+      <br>
       </strong>
       1. 게시물 관리정책<br>
-      <br>
-      장애, 성별, 국적, 인종이나 민족, 종교, 성적 지향에 대한 비방 및 혐오와 욕설을 포함함 메세지는 관리자에 의해 임의로 삭제됩니다. <br>
+      장애, 성별, 국적, 인종이나 민족, 종교, 성적 지향에 대한 비방 및 혐오와 욕설을 포함함 메세지는 <br>관리자에 의해 임의로 삭제됩니다. <br>
       해당 메세지의 작성자는 향후 메세지를 작성할 수 없을 수도 있습니다.<br>
       <br>
       2. 개인정보처리방침<br>
-      <br>  
       추모 메세지를 작성하시면 아래 개인정보의 수집 및 이용에 동의하신 것으로 간주합니다.<br>
        - 개인정보 수집항목<br>
           [페이스북 계정으로 로그인 시] 이메일, 이름, 서비스 이용기록(방문일시)<br>
@@ -318,7 +348,7 @@
     </div>
 
     <script>
-      const requestCount = 9;
+      const requestCount = 15;
       let datas = [];
       let blockUsers = [];
       let fbuser = null;
