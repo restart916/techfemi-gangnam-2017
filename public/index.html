@@ -85,7 +85,6 @@
         font-weight: 900; 
         color: #363a3c; 
         margin: 0 0 16px;
-        letter-spacing: -2px
       }
       #comment .pin {
         width: 20px;
@@ -109,6 +108,7 @@
       }
       #comment p.addition-text {
         font-size:12px;
+        color: #adb5bd
       }
       .before-login, .after-login {
         margin-left: auto;
@@ -164,7 +164,7 @@
         src: url(font/SDMiSaeng.ttf);
       }
       #comment-lists li { 
-        background:#ffc; 
+        background:#ffec99; 
         /*border: 2px solid #ffc;*/
         /*box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);*/
         box-shadow: 0 4px 5px rgba(0,0,0,.07); 
@@ -197,9 +197,13 @@
       
       #comment-lists li .data-comment {
         word-break: break-all;
-        font-family: SDMiSaeng;
-        font-size: 20px;
+        /*font-family: SDMiSaeng;*/
+        font-family: source-han-serif-korean, serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
         margin-bottom: 63px;
+        -webkit-font-smoothing: antialiased;
       }
       #comment-lists li:nth-child(even){
         -o-transform:rotate(4deg);
@@ -557,7 +561,7 @@
           method: 'share',
           display: 'popup',
           href: 'https://remember-160517.com/',
-          hashtag: '#테크페미를_만나고_나의_성공시대_시작됐다',
+          hashtag: '#강남역_1주기',
           quote: message,
 
         }, function(response){});
