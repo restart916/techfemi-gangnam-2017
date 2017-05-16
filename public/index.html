@@ -50,7 +50,7 @@
 
     <style media="screen">
       @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
-      
+
       body { 
         background: #fcfcfc; 
         color: rgba(0,0,0,0.87); 
@@ -76,6 +76,11 @@
         margin: 120px auto 50px;
         padding: 40px 24px; 
         background: url("./image/ribbon.png") no-repeat center;
+      }
+      @media (max-width: 600px) {
+        #ribbon {
+          margin: 60px auto 50px;
+        }
       }
       #comment { 
         background: white; 
@@ -304,7 +309,7 @@
       }
       @media (max-width: 600px) {
         .before-login, .after-login {
-          margin-left: auto;
+          margin: auto;
         }
         #comment {
           padding: 38px 32px;
