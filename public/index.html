@@ -44,12 +44,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #comment { background: white; max-width: 720px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+      body { background: #ffffff; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+      #comment { background: #e2e2e2; max-width: 720px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
       #comment h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
       #comment h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
       #comment p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #comment a.comment-submit-btn{ display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #comment a.comment-submit-btn{ display: block; text-align: center; background: #363a3c; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
       #comment { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
       #comment p.addition-text {
         font-size:12px;
@@ -70,35 +70,27 @@
         padding-right: 20px; 
       }
       #comment-lists { 
-        padding: 0px; 
-        text-align: center;
+        column-width: 320px;
+        column-gap: 15px;
+        width: 90%;
+        max-width: 1100px;
+        margin: 50px auto;
       }
       @font-face {
         font-family: SDMiSaeng;
         src: url(font/SDMiSaeng.ttf);
       }
       #comment-lists li { 
-        overflow:hidden;
-        margin:16px;
-        text-decoration:none;
-        color:#000;
-        background:#ffc;
-        display:inline-block; /* display:block; */
-        /*height:16em;*/
-        min-height:10em;
-        width:16em;
-        padding:1em;
-        -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
-        -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-        box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-        -moz-transition:-moz-transform .15s linear;
-        -o-transition:-o-transform .15s linear;
-        -webkit-transition:-webkit-transform .15s linear;
-        -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-           -moz-animation: fadein 2s; /* Firefox < 16 */
-            -ms-animation: fadein 2s; /* Internet Explorer */
-             -o-animation: fadein 2s; /* Opera < 12.1 */
-                animation: fadein 2s;
+        background:#ffc; 
+        /*border: 2px solid #ffc;*/
+        box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+        margin: 15px 2px 15px;
+        padding: 15px;
+        padding-bottom: 10px;
+        transition: opacity .4s ease-in-out;
+        display: inline-block;
+        column-break-inside: avoid;
+        min-width: 110px;
       }
       @media (max-width: 600px) {
         #comment-lists li { 
@@ -135,7 +127,7 @@
         background:#ccf;
       }
 
-      #comment-lists li:hover,#comment-lists li:focus{
+/*      #comment-lists li:hover,#comment-lists li:focus{
         -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
         -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
         box-shadow:10px 10px 7px rgba(0,0,0,.7);
@@ -144,14 +136,14 @@
         -o-transform: scale(1.25);
         position:relative;
         z-index:5;
-      } 
+      } */
 
       #comment-lists li .data-datetime {
         position: absolute;
         bottom: 0; 
         width: 100%; 
         height: 51px; 
-        font-size: 12px
+        font-size: 10px
       }
       #comment-lists li .data-share {
         position: absolute;
@@ -166,7 +158,7 @@
       
       #comment-lists img { width: 50px; }
       #more { max-width: 720px; margin: 12px auto 12px; }
-      #more a{ display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+      #more a{ display: block; text-align: center; background: #363a3c; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
       .submit-result {
         text-align: center;
         margin-bottom: 16px;
@@ -223,15 +215,17 @@
     </div>
     <div id="comment">
       <!-- <h2>테크페미</h2> -->
-      <h1>우리가 우연히 살아남은 1년 그 이후</h1>
+      <h1><strong>우리가 우연히 살아남은 1년 그 이후</strong></h1>
       <p>
       강남역 여성살해사건 이후 1년이 지났습니다. <br>
       당시 강남역 10번 출구 인근에서는 많은 사람이 익명으로 포스트잇을 작성하여 젠더폭력에 대한 자신의 경험을 전했습니다. 
       우리는 서로의 경험에 공감하기도 하고 함께 분노하기도 했으며 이를 계기로 페미니스트로서의 자신을 발견하기도 했습니다.
       <a href="https://twitter.com/techfemi" target="_blank">테크페미(@techfemi)</a>는 다시금 추모의 시간을 가지고 사건 이후 우리 모두 어떻게 '살아 남았는지' 에 대해 이야기 하고자 공간을 만들게 되었습니다. <br>
       문제가 있거나 궁금하신 점은 techfemi.kr@gmail.com으로 문의 바랍니다.<br>
+
       </p>
       <p class="addition-text">
+      <strong>
       ## 알려드립니다 ##<br>
       1. 게시물 관리정책<br>
       <br>
@@ -247,6 +241,7 @@
        - 개인정보 수집목적: 로그인 기반 메세지 작성 서비스 제공 및 고객대응<br>
        - 개인정보 보유 및 이용기간: 목적 달성 후 지체없이 파기<br>
       <br>
+      </strong>
       </p>
       <input type="text" class="input-comment form-control" maxlength="140">
       <hr>
