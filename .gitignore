@@ -1,2 +1,4 @@
+.DS_Store
+.jshintrc
 .firebaserc
 /functions/node_modules

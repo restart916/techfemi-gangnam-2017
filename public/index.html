@@ -20,15 +20,18 @@
 
     <link rel="shortcut icon" href="/image/favicon.ico">
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/3.9.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/3.9.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/3.9.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/3.9.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/3.9.0/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="/__/firebase/6.0.2/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/6.0.2/firebase-auth.js"></script>
+    <script src="/__/firebase/6.0.2/firebase-database.js"></script>
+    <script src="/__/firebase/6.0.2/firebase-storage.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -51,11 +54,11 @@
     <style media="screen">
       @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
 
-      body { 
-        background: #fcfcfc; 
-        color: rgba(0,0,0,0.87); 
-        font-family: "Spoqa Han Sans","Source Sans Pro",Apple SD Gothic Neo,"맑은 고딕","Malgun Gothic","돋움",Dotum,Verdana,Arial,sans-serif; 
-        margin: 0; 
+      body {
+        background: #fcfcfc;
+        color: rgba(0,0,0,0.87);
+        font-family: "Spoqa Han Sans","Source Sans Pro",Apple SD Gothic Neo,"맑은 고딕","Malgun Gothic","돋움",Dotum,Verdana,Arial,sans-serif;
+        margin: 0;
         padding: 0;
         line-height: 1.8
       }
@@ -71,10 +74,10 @@
         position: relative;
         top: -450px;
       }
-      #ribbon { 
-        max-width: 720px; 
+      #ribbon {
+        max-width: 720px;
         margin: 120px auto 50px;
-        padding: 40px 24px; 
+        padding: 40px 24px;
         background: url("./image/ribbon.png") no-repeat center;
       }
       @media (max-width: 600px) {
@@ -82,40 +85,40 @@
           margin: 60px auto 50px;
         }
       }
-      #comment { 
-        background: white; 
-        max-width: 720px; 
+      #comment {
+        background: white;
+        max-width: 720px;
         margin: 0px auto 16px;
-        padding: 50px; 
-        border-radius: 0px; 
+        padding: 50px;
+        border-radius: 0px;
         color: #363a3c;
         /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
         /*box-shadow: 0 20px 20px rgba(0,0,0,.1);*/
         box-shadow: 0 8px 20px rgba(0,0,0,.06);
       }
       #comment h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #comment h1 { 
-        font-size: 32px; 
-        font-weight: 900; 
-        color: #363a3c; 
+      #comment h1 {
+        font-size: 32px;
+        font-weight: 900;
+        color: #363a3c;
         margin: 0 0 16px;
       }
       #comment .pin {
         width: 20px;
         margin-right: 10px;
       }
-      #comment p { 
-        font-size: 16px; 
+      #comment p {
+        font-size: 16px;
       }
-      #comment a.comment-submit-btn{ 
-        display: block; 
-        text-align: center; 
-        background: #363a3c; 
-        text-transform: uppercase; 
-        text-decoration: none; 
-        color: white; 
-        padding: 16px; 
-        border-radius: 0px; 
+      #comment a.comment-submit-btn{
+        display: block;
+        text-align: center;
+        background: #363a3c;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: white;
+        padding: 16px;
+        border-radius: 0px;
       }
       #comment .input-comment {
         height: 50px;
@@ -140,11 +143,11 @@
       @media (max-width: 600px) {
         body, #comment { margin-top: 0; background: white; box-shadow: none; }
       }
-      
-      #top-nav { 
+
+      #top-nav {
         display: flex;
-        max-width: 720px; 
-        margin: 12px auto 12px; 
+        max-width: 720px;
+        margin: 12px auto 12px;
         padding: 0px 0px;
       }
       #top-nav .user-image { width: 30px; }
@@ -168,11 +171,11 @@
       #top-nav .after-login .float {
         float: left;
       }
-      #top-nav .after-login .logout-button { 
+      #top-nav .after-login .logout-button {
         background-color: #fcfcfc;
         border-color: #999999;
       }
-      #comment-lists { 
+      #comment-lists {
         column-width: 250px;
         column-gap: 15px;
         width: 90%;
@@ -189,11 +192,11 @@
         font-family: SDMiSaeng;
         src: url(font/SDMiSaeng.ttf);
       }
-      #comment-lists li { 
-        background:#ffec99; 
+      #comment-lists li {
+        background:#ffec99;
         /*border: 2px solid #ffc;*/
         /*box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);*/
-        box-shadow: 0 4px 5px rgba(0,0,0,.07); 
+        box-shadow: 0 4px 5px rgba(0,0,0,.07);
         margin: 25px 2px 25px;
         padding: 15px;
         padding-bottom: 10px;
@@ -203,7 +206,7 @@
         min-width: 110px;
       }
       @media (max-width: 600px) {
-        #comment-lists li { 
+        #comment-lists li {
           margin:6px;
         }
       }
@@ -212,15 +215,15 @@
         position: relative;
         height: 100%;
         text-align: left;
-        line-height: 1.8;    
-        letter-spacing: 0.2px; 
+        line-height: 1.8;
+        letter-spacing: 0.2px;
         font-size: 16px
       }
 
       #comment-lists li a {
         color: #666666;
       }
-      
+
       #comment-lists li .data-comment {
         word-break: break-all;
         /*font-family: SDMiSaeng;*/
@@ -261,38 +264,38 @@
 
       #comment-lists li .data-datetime {
         position: absolute;
-        bottom: 0; 
-        width: 100%; 
-        height: 51px; 
+        bottom: 0;
+        width: 100%;
+        height: 51px;
         font-size: 10px
       }
       #comment-lists li .data-share {
         position: absolute;
-        bottom: 0; 
-        width: 100%; 
-        height: 31px; 
+        bottom: 0;
+        width: 100%;
+        height: 31px;
       }
       #comment-lists li .share-btn-item {
         margin-left: -13px;
         float: right;
       }
-      
+
       #comment-lists img { width: 50px; }
-      #more { 
-        max-width: 720px; 
+      #more {
+        max-width: 720px;
         margin: 12px auto 12px;
-        padding: 0px 50px; 
+        padding: 0px 50px;
       }
-      #more a{ 
-        display: block; 
-        text-align: center; 
-        background: white; 
-        text-transform: uppercase; 
-        text-decoration: none; 
-        color: #363a3c; 
+      #more a{
+        display: block;
+        text-align: center;
+        background: white;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #363a3c;
         border-color: #363a3c;
-        padding: 16px; 
-        border-radius: 0px; 
+        padding: 16px;
+        border-radius: 0px;
       }
 
       .submit-result {
@@ -443,384 +446,7 @@
       </div>
     </div>
 
-    <script>
-      const requestCount = 15;
-      let datas = [];
-      let blockUsers = [];
-      let fbuser = null;
-      let vue1, vue2;
-
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('data', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          //document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          //document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-        
-        // document.getElementsByClassName('twitter-login-button')[0].addEventListener('click', function(event) {
-        //   event.preventDefault();
-        //   console.log('click twitter-login-button');
-        //   loginTwitter();
-        // });
-   
-        // document.getElementsByClassName('logout-button')[0].addEventListener('click', function(event) {
-        //   event.preventDefault();
-        //   console.log('click logout-button');
-        //   logout();
-        // });
-
-        // document.getElementsByClassName('facebook-login-button')[0].addEventListener('click', function(event) {
-        //   event.preventDefault();
-        //   console.log('click facebook-login-button');
-        //   loginFacebook();
-        // });
-
-        document.getElementsByClassName('comment-submit-btn')[0].addEventListener('click', function(event) {
-          event.preventDefault();
-          console.log('click comment-submit-btn');
-          submitComment();
-        });
-
-        document.getElementsByClassName('more-btn')[0].addEventListener('click', function(event) {
-          event.preventDefault();
-          console.log('click more-btn');
-          requestComments();
-        });
-
-        document.getElementsByClassName('more-btn')[0].addEventListener('click', function(event) {
-          event.preventDefault();
-          console.log('click more-btn');
-          requestComments();
-        });
-
-        firebase.auth().onAuthStateChanged(function(auth) {
-          vue1.fbuser = auth;
-          vue2.fbuser = auth;
-          // console.log(fbuser);
-        });
-
-        vue1 = new Vue({
-          el: '#comment-lists',
-          data: {
-            fbuser: fbuser,
-            datas: datas
-          },
-          methods: {
-            shareFacebook: function(message) {
-              shareFacebook(message);
-            },
-            deleteComment: function(key) {
-              deleteComment(key);
-            }
-          }
-        });
-
-        vue2 = new Vue({
-          el: '#top-nav',
-          data: {
-            fbuser: fbuser
-          },
-          methods: {
-            logout: function() {
-              requestLogout();
-            },
-            loginTwitter: function() {
-              loginTwitter();
-            },
-            loginFacebook: function() {
-              loginFacebook();
-            }
-          }
-        })
-
-        requestComments();
-
-        firebase.database().ref().child('comments').orderByKey().limitToLast(requestCount).on('child_added',
-          function(data) {
-            let val = data.val();
-            val['key'] = data.key;
-            if ( datas.findIndex(x => x.key == data.key) == -1) {
-              datas.unshift(val);
-            }
-          }
-        );
-        firebase.database().ref().child('comments').orderByKey().limitToLast(requestCount).on('child_changed',
-          function(data) {
-            let val = data.val();
-            let index = datas.findIndex(x => x.key == data.key);
-            if (index != -1) {
-              datas[index]['datetime'] = val.datetime;
-            }
-            vue1.$forceUpdate();
-          }
-        );
-        firebase.database().ref().child('comments').orderByKey().limitToLast(requestCount).on('child_removed',
-          function(data) {
-            let index = datas.findIndex(x => x.key == data.key);
-            if (index != -1) {
-              datas.splice(index, 1);
-            }
-          }
-        );
-        firebase.database().ref().child('blockUsers').on('child_added',
-          function(data) {
-            blockUsers.push(data.key);
-          }
-        );
-      }); 
-
-      function deleteComment(key) {
-        // let index = datas.findIndex(x => x.key == key);
-        // if (index != -1) {        
-        // }
-
-        let ref = firebase.database().ref().child('comments').child(key);
-        ref.remove().then(function() {
-          console.log("Remove succeeded.")
-        });
-      }
-
-      function shareFacebook(message) {
-        FB.ui({
-          method: 'share',
-          display: 'popup',
-          href: 'https://remember-160517.com/',
-          hashtag: '#강남역1주기',
-          quote: message,
-
-        }, function(response){});
-      }
-
-      function requestComments() {
-        let count = datas.length;
-        if (count > 0) {
-          let lastKey = datas[count-1].key;
-          // let firstKey = datas[0].key;
-
-          firebase.database().ref().child('comments').orderByKey().endAt(lastKey).limitToLast(requestCount+1).once('value').then(
-            function(snapshot) {
-              processSnapshot(snapshot);
-            }
-          );  
-        } else {
-          firebase.database().ref().child('comments').orderByKey().limitToLast(requestCount).once('value').then(
-            function(snapshot) {
-              processSnapshot(snapshot);            
-            }
-          );
-        }
-      }
-
-      function processSnapshot(snapshot) {
-        newDatas = [];
-        snapshot.forEach(function(childSnapshot) {
-          let val = childSnapshot.val();
-          val['key'] = childSnapshot.key;
-          val['datetime'] = childSnapshot.datetime;
-          // console.log(val);
-          if ( datas.findIndex(x => x.key == childSnapshot.key) == -1) {
-            newDatas.push(val);
-          }
-        });
-        newDatas.reverse();
-        newDatas.forEach(function(val) {
-          datas.push(val);
-        });
-      }
-
-      function submitComment() {
-        let user = firebase.auth().currentUser;
-        if (user == null) {
-          showMessage("로그인을 하시면 추모 메시지를 작성할 수 있습니다.");
-          return;
-        }
-
-        document.getElementsByClassName('comment-submit-btn')[0].disabled = true;
-        let comment = document.getElementsByClassName('input-comment')[0].value;
-
-        if (comment.trim() == '') {
-          showMessage("추모 메시지를 입력해주세요.");
-          return;
-        }
-
-        let len = comment.length;
-        if (len > 140) {
-          showMessage("추모 메시지는 140자 미만으로 작성해주세요.");
-          return;  
-        }
-
-        // 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
-        // 한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십한둘셋넷다여칠팔구십
-        let uid = user.uid;
-        if (blockUsers.findIndex(x => x == uid) != -1) {
-          showMessage("추모 메시지를 작성할 수 없습니다. 자세한 사항은 아래 메일로 문의바랍니다.");
-          return;  
-        }
-          
-        // console.log(comment);
-        let object = {
-          uid : user.uid,
-          username : user.displayName,
-          userPhotoUrl : user.photoURL,
-          comment : comment,
-        };
-
-        // Get a key for a new Post.
-        var newPostKey = firebase.database().ref().child('comments').push().key;
-
-        var updates = {};
-        updates['/comments/' + newPostKey] = object;
-
-        firebase.database().ref().update(updates, function() {
-          document.getElementsByClassName('comment-submit-btn')[0].disabled = false;
-          document.getElementsByClassName('input-comment')[0].value = '';
-
-          showMessage("추모 메시지가 등록 되었습니다.", true);
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-
-          showMessage("추모 메시지를 작성할 수 없습니다.  잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
-        });;
-      }
-
-      function requestLogout() {
-        firebase.auth().signOut();
-      }
-
-      function loginFacebook() {
-        var provider = new firebase.auth.FacebookAuthProvider();
-        provider.addScope('user_birthday');
-        provider.setCustomParameters({
-          'display': 'popup'
-        });
-
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
-          console.log('success');
-
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-
-          console.log('error');
-          showMessage("로그인을 할 수 없니다. 잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
-        });
-      }
-
-      function loginTwitter() {
-        var provider = new firebase.auth.TwitterAuthProvider();
-        provider.setCustomParameters({
-          'lang': 'kr'
-        });
-
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-          // You can use these server side with your app's credentials to access the Twitter API.
-          var token = result.credential.accessToken;
-          var secret = result.credential.secret;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
-          console.log('twitter success');
-
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-          console.log('twitter error');
-          showMessage("로그인을 할 수 없니다. 잠시 후 다시 시도하시거나 메일로 문의 바랍니다.");
-        });
-        //*/
-      }
-
-      function showMessage(message, autoHide = false) {
-        if (autoHide) {
-          hideMessage();
-          var result = document.getElementsByClassName('submit-result')[0];
-          result.innerHTML = message;
-          fadeIn(result);
-          setTimeout(function() {
-            fadeOut(result);
-          }, 1300);
-        }
-        else {
-          var result = document.getElementsByClassName('submit-result-fail')[0];
-          var messageDiv = document.getElementsByClassName('result-fail-message')[0];
-          messageDiv.innerHTML = message;
-          fadeIn(result);
-        }
-      }
-
-      function hideMessage() {
-        var result = document.getElementsByClassName('submit-result-fail')[0];
-        fadeOut(result);
-      }
-
-      // fade out
-      function fadeOut(el) {
-        var op = 1;
-        var timer = setInterval(function () {
-          if (op <= 0.1){
-            clearInterval(timer);
-            el.style.display = 'none';
-          }
-          el.style.opacity = op;
-          op -= op * 0.1;
-        }, 10);
-      }
-
-      // fade in
-      function fadeIn(el) {
-        var op = 0;
-        el.style.opacity = op;
-        el.style.display = '';
-        
-        var timer = setInterval(function () {
-          if (op >= 1.0){
-            clearInterval(timer);
-          }
-          el.style.opacity = op;
-          op = op + 0.1;
-        }, 30);
-      }
-
-    </script>
-
+    <script src="./js/main.js"></script>
     <script src="https://use.typekit.net/jpo5irs.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
   </body>
