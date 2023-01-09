@@ -9,8 +9,8 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "firebase-admin": "^8.12.1",
-    "firebase-functions": "^2.2.1",
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^4.1.1",
     "moment-timezone": "^0.5.13"
   },
   "engines": {
